@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+	
+    <aura:attribute name="specialistDayCalendar" type="List" />
+    
+    <table style="float:left;max-width:150px;">
+        <th>
+            {!v.specialistDayCalendar.specialist}
+        </th>
+       <aura:iteration items="{!v.specialistDayCalendar.appointments}" var="appointmentSlot">
+            <tr style="height:30px;">
+                <td>
+                    <c:timeSlot appointment="{!appointmentSlot}"/>
+                </td>
+            </tr>
+        </aura:iteration>
+    </table>
+    
+</aura:component>

@@ -1,0 +1,10 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="appointmentDate" type="Date"/>
+    <aura:attribute name="timeSlot" type="String"/>
+    <aura:attribute name="specialist" type="String"/>
+    <aura:attribute name="specialistId" type="String"/>
+    <aura:attribute name="specialism" type="String"/>
+    <aura:attribute name="patientId" type="String"/>
+    <aura:attribute name="appointmentId" type="String"/>
+    <aura:attribute name="cost" type="Decimal"/>
+</aura:event>

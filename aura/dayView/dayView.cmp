@@ -1,0 +1,65 @@
+<aura:component controller="appointmentController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="timeTable" type="List"/>
+    <aura:attribute name="test" type="Object"/>
+    <aura:attribute name="timeSlotList" type="List"/>
+    <aura:attribute name="specialists" type="List"/>
+    <aura:attribute name="specialization" type="String" default="General Practice"/>
+    <aura:attribute name="selectAll" type="Boolean" default="true"/>
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="dateValue" type="Date"/>
+    <aura:attribute name="tableWidth" type="String" default="40"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="c:appointmentSubmitted" action="{!c.refresh}"/>
+    {!v.errorMessage}
+    <c:newAppointmentForm date="{!v.dateValue}"/>
+    
+    <!-- Date and specialism picker -->
+        <lightning:card class="slds-p-around_large openingForm">
+             <!-- List of specialists -->
+            <div style="padding-left: 10px;width: 30%;float:right">
+                <lightning:input style="font-weight:bold;" label="Select All" type="checkbox" value="{!v.selectAll}" checked="{!v.selectAll}" onchange="{!c.updateAll}"/>
+                <aura:iteration items="{!v.specialists}" var="specialist">
+                    <lightning:input label="{!specialist.name}" value="{!specialist.isVisible}" type="checkbox" checked="{!specialist.isVisible}" onchange="{!c.updateLists}"/>
+                </aura:iteration>
+            </div>
+            
+            <div id="startForm" style="width:70%">
+                    <h2 style="font-size:20px;">Scheduler</h2>
+                    <lightning:input type="date" name="dateValue" label="Date" value="{!v.dateValue}" onchange="{!c.doInit}"/>
+                    <lightning:select value="{!v.specialization}" label="Appointment Type" required="true" onchange="{!c.doInit}">
+                        <option value="General Practice">GP</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Endocrinology">Endocrinology</option>
+                        <option value="Rheumatology">Rheumatology</option>
+                    </lightning:select>
+            </div>
+            
+            <aura:set attribute="footer">
+                <c:startGoogleAccess/>
+        	</aura:set>
+        </lightning:card>
+    
+    <div style="margin-top:25px;margin-bottom:25px;paddin-bottom:50px;">
+        <!-- Time slot column -->
+        <table style="float:left;width:15%;margin-bottom:50px;">
+            <th>
+            {!v.dateValue}
+            </th>
+            <aura:iteration items="{!v.timeSlotList}" var="timeSlot">
+                <tr>
+                    <td class="timeSlotRow">
+                        {!timeSlot.timeSlot}
+                    </td>
+                </tr>
+            </aura:iteration>
+        </table>
+        
+        <!-- Columns for each specialist -->
+        <aura:iteration items="{!v.timeTable}" var="dayCalendar">
+            <aura:if isTrue="{!dayCalendar.isVisible}">
+                <c:specialistsDayCalendar specialistDayCalendar="{!dayCalendar}"/>
+            </aura:if>
+        </aura:iteration>
+    </div>
+    
+</aura:component>

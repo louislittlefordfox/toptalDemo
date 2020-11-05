@@ -1,0 +1,10 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="appointment" type="Object"/>
+    <aura:registerEvent name="formOpenEvent" type="c:openForm"/>
+    <aura:if isTrue="{!v.appointment.fromGoogleCalendar}">
+    	<lightning:button variant="base" label="Busy" disabled="true" class="myBtn"/>
+        <aura:set attribute="else">
+          <lightning:button variant="base" label="{!v.appointment.patient}" onclick="{! c.openForm }" class="myBtn"/>
+        </aura:set>
+    </aura:if>
+</aura:component>

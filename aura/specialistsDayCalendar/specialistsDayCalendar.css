@@ -1,0 +1,26 @@
+.THIS th {
+    height: 30px;
+    background-color: white;
+    text-align: center;
+    border-color:black;
+    border-style:dotted;
+    border-width:1px;
+    border-left: none;
+}
+
+.THIS tr:nth-of-type(even) {
+    border-bottom-color:black;
+    border-bottom-style:dotted;
+    border-bottom-width:1.5px;
+    background-color: white;
+    padding:0;
+    height:30px;
+}
+
+.THIS tr:nth-of-type(odd) {
+    border-bottom-color:gray;
+    border-bottom-style:dotted;
+    border-bottom-width:1px;
+    background-color: white;
+    height:30px;
+}

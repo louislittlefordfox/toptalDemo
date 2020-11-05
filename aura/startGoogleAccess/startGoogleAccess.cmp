@@ -1,0 +1,3 @@
+<aura:component controller="GoogleConnector" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <lightning:button variant="brand" label="Refresh Google Calendars" onclick="{!c.goTo}" class="myBtn"/>
+</aura:component>

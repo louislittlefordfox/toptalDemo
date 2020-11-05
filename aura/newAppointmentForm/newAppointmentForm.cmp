@@ -1,0 +1,49 @@
+<aura:component controller="appointmentController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+	<aura:attribute name="isVisible" type="Boolean" default="false"/>
+    <aura:attribute name="timeSlot" type="String"/>
+    <aura:attribute name="specialist" type="Date"/>
+    <aura:attribute name="specialism" type="String"/>
+    <aura:attribute name="specialistId" type="String"/>
+    <aura:attribute name="patientId" type="String"/>
+    <aura:attribute name="cost" type="Decimal"/>
+    <aura:attribute name="appointmentId" type="String"/>
+    <aura:attribute name="errorMessage" type="String"/>
+    <aura:attribute name="date" type="Date"/>
+    <aura:handler event="c:openForm" action="{!c.openForm}"/>
+    
+        <aura:if isTrue="{!v.isVisible}">
+<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+  <div class="slds-modal__container">
+    <header class="slds-modal__header">
+        <lightning:buttonIcon class="slds-float_right" iconName="utility:close"  variant="bare" title="Close" alternativeText="Close window" onclick="{!c.closeWindow}"/>
+      <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Book appointment</h2>
+        
+    </header>
+    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+      	<lightning:recordEditForm objectApiName="Appointment__c"> 
+            <aura:if isTrue="{!v.errorMessage!=null}">
+            	<ui:message title="Error" severity="error" closable="true">{!v.errorMessage}</ui:message>
+            </aura:if>
+            <lightning:inputField value="{!v.patientId}" fieldName="Patient__c"/>
+            <lightning:inputField value="{!v.timeSlot}" fieldName="Time_Slot__c" />
+            <lightning:inputField fieldName="Date__c" value="{!v.date}"/>
+        </lightning:recordEditForm>
+    </div>
+    <footer class="slds-modal__footer">
+      	<aura:if isTrue="{!v.appointmentId==null}">
+            <span style="font-size:15px;margin:20px 5px;float:left">Specialist: {!v.specialist}</span>
+            <span style="font-size:15px;margin:20px 5px;float:left">Price: £{!v.cost}</span>
+            <lightning:button name="Submit" label="Confirm" class="slds-m-top_medium" onclick="{!c.newAppointment}"/>
+            <aura:set attribute="else">
+                <lightning:button type="submit" name="Submit" label="Update" class="slds-m-top_medium" onclick="{!c.editAppointment}"/>
+                <lightning:button type="submit" name="Submit" label="Cancel" class="slds-m-top_medium" onclick="{!c.removeAppointment}"/>
+            </aura:set>
+    	</aura:if>
+    </footer>
+  </div>
+</section>
+<div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+ 
+    
+</aura:component>
